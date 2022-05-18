@@ -17,8 +17,9 @@
 
 
 let currentActiveTab;
-let scheduledToReload;
 let colorScheme;
+let scheduledToReload = false;
+let autoReload = true;
 
 /*
  * Updates the browserAction icon to reflect whether the current page
@@ -40,7 +41,9 @@ function updateIcon() {
 
   browser.browserAction.setTitle({
     // Screen readers can see the title
-    title: scheduledToReload ? '[Off] Waiting connectivity' : '[On] All good'
+    title: scheduledToReload
+      ? `[OFF]${(autoReload ? `[AUTO]` : ``)} Waiting connectivity`
+      : `[ON ]${(autoReload ? `[AUTO]` : ``)} All good`
   });
 
 }
@@ -53,17 +56,13 @@ function updateColorScheme() {
   colorScheme = isDarkMode() ? 'dark' : 'light';
 }
 
-// /*
-//  * Executed when user click extension icon
-//  */
-// function runOnExtensionClick() {
-//   browser.tabs.executeScript({
-//     runAt: `document_start`,
-//     code: `console.log('location (from extension click):', window.location.href);`
-//   });
-// }
+function toggleAutoReload() {
+  autoReload = !autoReload;
+  updateIcon();
+  console.log('autoReload: ' + autoReload);
+}
 
-// browser.browserAction.onClicked.addListener(runOnExtensionClick);
+browser.browserAction.onClicked.addListener(toggleAutoReload);
 
 /*
  * Switches currentActiveTab to reflect the currently active tab
@@ -81,35 +80,47 @@ function updateActiveTab() {
 
 }
 
-function tabsConnectivityChanged(message, sender) {
+function networkConnectivityChanged(message) {
 
-  if (sender.tab.id === currentActiveTab.id) {
-
-    updateIcon();
-
-    // browser.notifications.create({
-    //   "type": "basic",
-    //   "iconUrl": browser.extension.getURL("icons/bookmark-it.png"),
-    //   "title": "Page connectivity changed!",
-    //   "message": message.status + ', current active page ' + currentActiveTab.url
-    // });
-
-    if (scheduledToReload && message.status === 'online') {
-      // browser.tabs.reload() defaults to current active tab but we can pass a tabId
-      browser.tabs.reload(currentActiveTab.id);
-    }
-
-  }
+  // browser.notifications.create({
+  //   "type": "basic",
+  //   "iconUrl": browser.extension.getURL("icons/bookmark-it.png"),
+  //   "title": "Page connectivity changed!",
+  //   "message": message.status + ', current active page ' + currentActiveTab.url
+  // });
 
   if (message.status === 'offline') {
     scheduledToReload = true;
-  } else {
+    updateIcon();
+
+    return;
+  }
+
+  if (currentActiveTab && scheduledToReload && message.status === 'online') {
+    if (autoReload) {
+      // browser.tabs.reload() defaults to current active tab but we can pass a tabId
+      browser.tabs.reload(currentActiveTab.id);
+    }
     scheduledToReload = false;
+    updateIcon();
   }
 
 }
 
-browser.runtime.onMessage.addListener(tabsConnectivityChanged);
+window.addEventListener('offline', function (ev) {
+  console.log('offline');
+  networkConnectivityChanged({
+    "status": ev.type
+  });
+});
+
+window.addEventListener('online', function (ev) {
+  console.log('online');
+  networkConnectivityChanged({
+    "status": ev.type
+  });
+});
+
 
 // listen to tab URL changes
 browser.tabs.onUpdated.addListener(updateActiveTab);
