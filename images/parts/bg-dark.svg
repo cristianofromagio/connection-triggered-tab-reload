@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="96"
+   height="96"
+   viewBox="0 0 25.399999 25.400001"
+   version="1.1"
+   id="svg2343"
+   sodipodi:docname="bg-dark.svg"
+   inkscape:version="1.0.2-2 (e86c870879, 2021-01-15)">
+  <defs
+     id="defs2337" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="3.959798"
+     inkscape:cx="38.99781"
+     inkscape:cy="61.557063"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="1600"
+     inkscape:window-height="837"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata2340">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="opacity:1">
+    <g
+       style="fill:#fbfbfe;fill-opacity:1"
+       id="g2174"
+       transform="matrix(1.2047032,0,0,1.2047032,-2.4093341,-4.8188128)">
+      <path
+         fill-rule="evenodd"
+         clip-rule="evenodd"
+         d="m 18.9999,4 c 1.6569,0 3,1.34315 3,3 v 10 c 0,1.6569 -1.3431,3 -3,3 H 4.99994 c -1.65686,0 -3,-1.3431 -3,-3 V 7 c 0,-1.65685 1.34314,-3 3,-3 z m 1,5.62479 H 13 c -0.5522,0 -1.1558,-0.41972 -1.348,-0.93747 L 10.6542,6 H 4.99994 c -0.55229,0 -1,0.44772 -1,1 v 10 c 0,0.5523 0.44771,1 1,1 H 18.9999 c 0.5523,0 1,-0.4477 1,-1 z"
+         fill="currentColor"
+         id="path2172"
+         style="fill:#fbfbfe;fill-opacity:1" />
+    </g>
+  </g>
+</svg>
