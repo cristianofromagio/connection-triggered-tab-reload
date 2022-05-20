@@ -12,6 +12,9 @@
  *  - https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/onMessage
  *  - https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/MessageSender
  *  - https://1loc.dev/misc/detect-dark-mode/
+ *  - https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/icons#svg
+ *  - chrome://devtools/skin/images/debugging-workers.svg (saved on the project at `./images/debugging-workers.svg`)
+ *  -   this file is used in the browser interface and have a fill: context-fill to adapt to theme colors
  *  -
  */
 
@@ -30,12 +33,12 @@ function updateIcon() {
   browser.browserAction.setIcon({
     path: scheduledToReload
       ? {
-        19: `icons/off-${colorScheme}-19.png`,
-        38: `icons/off-${colorScheme}-38.png`
+        19: `icons/dark-off-96.svg`,
+        38: `icons/dark-off-96.svg`
       }
       : {
-        19: `icons/on-${colorScheme}-19.png`,
-        38: `icons/on-${colorScheme}-38.png`
+        19: `icons/dark-on-96.svg`,
+        38: `icons/dark-on-96.svg`
       }
   });
 
