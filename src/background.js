@@ -20,7 +20,7 @@
 
 
 let currentActiveTab;
-let scheduledToReload = false;
+let scheduledToReload = (navigator.onLine) ? false : true;
 let autoReload = true;
 
 /*
@@ -70,7 +70,7 @@ function updateActiveTab() {
   }
 
   let gettingActiveTab = browser.tabs.query({ active: true, currentWindow: true });
-  gettingActiveTab.then(updateTab).then(updateIcon);
+  gettingActiveTab.then(updateTab);
 
 }
 
@@ -125,5 +125,6 @@ browser.tabs.onActivated.addListener(updateActiveTab);
 // listen for window switching
 browser.windows.onFocusChanged.addListener(updateActiveTab);
 
-// update when the extension loads initially
+// updates when the extension loads initially
 updateActiveTab();
+updateIcon();
