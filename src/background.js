@@ -20,7 +20,6 @@
 
 
 let currentActiveTab;
-let colorScheme;
 let scheduledToReload = false;
 let autoReload = true;
 
@@ -51,14 +50,6 @@ function updateIcon() {
 
 }
 
-function isDarkMode() {
-  return (window.matchMedia && !!window.matchMedia('(prefers-color-scheme: dark)').matches);
-}
-
-function updateColorScheme() {
-  colorScheme = isDarkMode() ? 'dark' : 'light';
-}
-
 function toggleAutoReload() {
   autoReload = !autoReload;
   updateIcon();
@@ -79,7 +70,7 @@ function updateActiveTab() {
   }
 
   let gettingActiveTab = browser.tabs.query({ active: true, currentWindow: true });
-  gettingActiveTab.then(updateTab).then(updateColorScheme).then(updateIcon);
+  gettingActiveTab.then(updateTab).then(updateIcon);
 
 }
 
