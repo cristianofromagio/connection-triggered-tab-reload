@@ -15,38 +15,47 @@
  *  - https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/icons#svg
  *  - chrome://devtools/skin/images/debugging-workers.svg (saved on the project at `./images/debugging-workers.svg`)
  *  -   this file is used in the browser interface and have a fill: context-fill to adapt to theme colors
+ *  - https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/i18n/getMessage
  *  -
  */
 
 
 let currentActiveTab;
+let currentActiveAction;
 let scheduledToReload = (navigator.onLine) ? false : true;
 let autoReload = true;
+
+let actionsMix = { true: {}, false: {} };
+// [if is offline => scheduledToReload=true][if is disabled => autoReload=false]
+actionsMix[true][true]   = { icon: "offline",          title: browser.i18n.getMessage("extensionTitleOffline") };
+actionsMix[true][false]  = { icon: "offline-disabled", title: browser.i18n.getMessage("extensionTitleOfflineDisabledReload") };
+actionsMix[false][true]  = { icon: "online",           title: browser.i18n.getMessage("extensionTitleOnline") };
+actionsMix[false][false] = { icon: "online-disabled",  title: browser.i18n.getMessage("extensionTitleOnlineDisabledReload") };
 
 /*
  * Updates the browserAction icon to reflect whether the current page
  * is already scheduledToReload.
  */
 function updateIcon() {
+  const newAction = actionsMix[scheduledToReload][autoReload];
 
-  browser.browserAction.setIcon({
-    path: scheduledToReload
-      ? {
-        19: `icons/dark-off-96.svg`,
-        38: `icons/dark-off-96.svg`
-      }
-      : {
-        19: `icons/dark-on-96.svg`,
-        38: `icons/dark-on-96.svg`
-      }
-  });
+  if (JSON.stringify(currentActiveAction) !== JSON.stringify(newAction)) {
 
-  browser.browserAction.setTitle({
-    // Screen readers can see the title
-    title: scheduledToReload
-      ? `[OFF]${(autoReload ? `[AUTO]` : ``)} Waiting connectivity`
-      : `[ON ]${(autoReload ? `[AUTO]` : ``)} All good`
-  });
+    browser.browserAction.setIcon({
+      path: {
+        19: `icons/icon-${newAction.icon}-96.svg`,
+        38: `icons/icon-${newAction.icon}-96.svg`
+      }
+    });
+
+    browser.browserAction.setTitle({
+      // Screen readers can see the title
+      title: newAction.title
+    });
+
+    currentActiveAction = newAction;
+
+  }
 
 }
 
