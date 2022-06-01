@@ -6,8 +6,8 @@
   "default_locale": "en",
   "homepage_url": "https://github.com/cristianofromagio/connection-tab-reload-firefox",
   "icons": {
-    "48": "icons/dark-on-96.svg",
-    "96": "icons/dark-on-96.svg"
+    "48": "icons/icon-online-96.svg",
+    "96": "icons/icon-online-96.svg"
   },
 
   "permissions": [
@@ -15,7 +15,7 @@
   ],
 
   "browser_action": {
-    "default_icon": "icons/dark-on-96.svg",
+    "default_icon": "icons/icon-online-96.svg",
     "default_title": "Tab Reload"
   },
 

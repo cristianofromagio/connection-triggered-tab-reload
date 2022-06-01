@@ -37,6 +37,13 @@ const ICON_BOTTOM_RIGHT_POSITION = {
   top: CANVAS_HEIGHT,
   left: CANVAS_WIDTH
 };
+const ICON_BOTTOM_CENTER_POSITION = {
+  id: 'icon-status', // this will be the group/path id inside generated svg
+  originY: 'bottom',
+  originX: 'center',
+  top: CANVAS_HEIGHT,
+  left: CANVAS_WIDTH / 2
+};
 
 function assembleIcons(cb) {
 
@@ -107,79 +114,55 @@ function assembleIcons(cb) {
 
   };
 
-  const iconDarkDisabled = assembleIcon('dark-disabled-96', [
+  const iconOnline = assembleIcon('icon-online-96', [
     {
-      filepath: 'images/parts/bg-dark.svg',
+      filepath: 'images/parts/v2/bg-light.svg',
       options: { id: 'icon-bg' }
     },
     {
-      filepath: 'images/parts/corner-dark-disabled.svg',
+      filepath: 'images/parts/v2/status-on.svg',
       options: ICON_BOTTOM_RIGHT_POSITION
     }
   ]);
 
-  const iconDarkOn = assembleIcon('dark-on-96', [
+  const iconOffline = assembleIcon('icon-offline-96', [
     {
-      filepath: 'images/parts/bg-dark.svg',
+      filepath: 'images/parts/v2/bg-light.svg',
       options: { id: 'icon-bg' }
     },
     {
-      filepath: 'images/parts/corner-dark-on.svg',
+      filepath: 'images/parts/v2/status-off.svg',
       options: ICON_BOTTOM_RIGHT_POSITION
     }
   ]);
 
-  const iconDarkOff = assembleIcon('dark-off-96', [
+  const iconOnlineDisabled = assembleIcon('icon-online-disabled-96', [
     {
-      filepath: 'images/parts/bg-dark.svg',
+      filepath: 'images/parts/v2/bg-light.svg',
       options: { id: 'icon-bg' }
     },
     {
-      filepath: 'images/parts/corner-dark-off.svg',
+      filepath: 'images/parts/v2/status-on-disabled.svg',
       options: ICON_BOTTOM_RIGHT_POSITION
     }
   ]);
 
-  const iconLightDisabled = assembleIcon('light-disabled-96', [
+  const iconOfflineDisabled = assembleIcon('icon-offline-disabled-96', [
     {
-      filepath: 'images/parts/bg-light.svg',
+      filepath: 'images/parts/v2/bg-light.svg',
       options: { id: 'icon-bg' }
     },
     {
-      filepath: 'images/parts/corner-light-disabled.svg',
-      options: ICON_BOTTOM_RIGHT_POSITION
-    }
-  ]);
-
-  const iconLightOn = assembleIcon('light-on-96', [
-    {
-      filepath: 'images/parts/bg-light.svg',
-      options: { id: 'icon-bg' }
-    },
-    {
-      filepath: 'images/parts/corner-light-on.svg',
-      options: ICON_BOTTOM_RIGHT_POSITION
-    }
-  ]);
-
-  const iconLightOff = assembleIcon('light-off-96', [
-    {
-      filepath: 'images/parts/bg-light.svg',
-      options: { id: 'icon-bg' }
-    },
-    {
-      filepath: 'images/parts/corner-light-off.svg',
+      filepath: 'images/parts/v2/status-off-disabled.svg',
       options: ICON_BOTTOM_RIGHT_POSITION
     }
   ]);
 
   return Promise.all([
-    iconDarkDisabled,
-    iconDarkOn,
-    iconDarkOff,
-    iconLightDisabled,
-    iconLightOn,
-    iconLightOff
+    iconOnline,
+    iconOffline,
+    iconOnlineDisabled,
+    iconOfflineDisabled
   ]).then(() => {
     console.log('All icons assembled');
   });

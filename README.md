@@ -12,7 +12,8 @@ When a tab is reproducing a livestream and there is a short instability in the n
 - ~~Remove `contentScript` "dependency". The `window.navigator` property doesn't need to be read from a content space, it can be used directly on `background.js`~~
 - ~~Create a popup menu or a browserAction for users to disable the default behavior (prevent page from reloading when connection comes back)~~
   + At first thought about creating an extension option config to handle this, but then it would require the `storage` permission at install (and because of that would display the message "this extension can read all data from all sites") and that could be an overkill. At the moment the page reload is the default behavior and the user can tap at the extension icon to toggle `autoReload` (this config is not persisted, it resets with every new browser session).
-- Automatize icons generation
+- ~~Automatize icons generation~~
+  + Icon assemble pipeline created using Gulp and FabricJs.
 
 ## Sources
 

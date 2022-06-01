@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   width="15.875mm"
+   height="15.875mm"
+   viewBox="0 0 15.875 15.875"
+   version="1.1"
+   id="svg1831">
+  <defs
+     id="defs1825" />
+  <metadata
+     id="metadata1828">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     transform="translate(55.827177,-115.79368)">
+    <path
+       id="circle1700"
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.520954;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+       d="m -39.952179,123.73118 a 7.9375,7.9375 0 0 1 -7.9375,7.9375 7.9375,7.9375 0 0 1 -7.9375,-7.9375 7.9375,7.9375 0 0 1 7.9375,-7.9375 7.9375,7.9375 0 0 1 7.9375,7.9375 z" />
+    <path
+       id="circle1702"
+       style="fill:#37c871;fill-opacity:1;stroke:none;stroke-width:0.494906;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+       d="m -40.349054,123.73118 a 7.5406251,7.5406251 0 0 1 -7.540625,7.54062 7.5406251,7.5406251 0 0 1 -7.540625,-7.54062 7.5406251,7.5406251 0 0 1 7.540625,-7.54063 7.5406251,7.5406251 0 0 1 7.540625,7.54063 z" />
+    <path
+       id="path1708"
+       style="fill:#1a1a1a;fill-opacity:1;stroke-width:3.92859"
+       d="M 30 10 C 24.88152 10 19.762666 11.952149 15.857422 15.857422 C 8.046911 23.667891 8.046911 36.332071 15.857422 44.142578 C 23.66791 51.952858 36.332063 51.952858 44.142578 44.142578 C 51.95284 36.332071 51.95284 23.667891 44.142578 15.857422 C 40.237321 11.952149 35.11848 10 30 10 z M 30 15 C 32.946842 15 35.890558 15.869759 38.425781 17.595703 L 17.597656 38.425781 C 13.622627 32.587852 14.214982 24.570147 19.392578 19.392578 C 22.321508 16.463633 26.161169 15 30 15 z M 42.242188 21.355469 C 46.385906 27.210657 45.851042 35.364009 40.607422 40.607422 C 35.364405 45.850656 27.212527 46.384917 21.357422 42.242188 L 42.242188 21.355469 z "
+       transform="matrix(0.26458333,0,0,0.26458333,-55.827177,115.79368)" />
+  </g>
+</svg>

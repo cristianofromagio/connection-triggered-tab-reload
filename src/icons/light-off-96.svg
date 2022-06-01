@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="96" height="96" viewBox="0 0 96 96">
-  <path id="icon-bg" fill="context-fill" fill-rule="evenodd" d="M 18.9999 4 C 20.6568 4 21.9999 5.34315 21.9999 7 L 21.9999 17 C 21.9999 18.6569 20.6568 20 18.9999 20 L 4.99994 20 C 3.3430799999999996 20 1.9999399999999996 18.6569 1.9999399999999996 17 L 1.9999399999999996 7 C 1.9999399999999996 5.34315 3.3430799999999996 4 4.99994 4 z M 19.9999 9.62479 L 13 9.62479 C 12.4478 9.62479 11.8442 9.205070000000001 11.652 8.687320000000001 L 10.6542 6 L 4.99994 6 C 4.447649999999999 6 3.9999399999999996 6.44772 3.9999399999999996 7 L 3.9999399999999996 17 C 3.9999399999999996 17.5523 4.447649999999999 18 4.99994 18 L 18.9999 18 C 19.5522 18 19.9999 17.5523 19.9999 17 z" transform="matrix(4.55 0 0 4.55 -9.07 -18.17)"/>
-  <g id="icon-status" transform="translate(66.26 66.26)">
-    <circle id="circle2192" r="6.4366126" fill="#fc0" stroke="#5b5b66" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.88798" transform="scale(3.78)"/>
-    <circle id="circle2445" r="5.7198014" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width=".48" transform="scale(3.78)"/>
-    <circle id="circle2457" r="7.603641" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width=".529167" transform="scale(3.78)"/>
-  </g>
-</svg>
