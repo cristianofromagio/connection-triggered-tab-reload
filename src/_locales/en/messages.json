@@ -1,0 +1,36 @@
+{
+  "extensionName": {
+    "message": "Connection Triggered Tab Reload",
+    "description": "Extension name"
+  },
+
+  "extensionDescription": {
+    "message": "Reloads current active tab when navigator status turns online again",
+    "description": "Extension description"
+  },
+
+  "extensionTitle": {
+    "message": "Connection Triggered Tab Reload",
+    "description": "Extension action title"
+  },
+
+  "extensionTitleOffline": {
+    "message": "[OFFLINE] Waiting connectivity",
+    "description": "Extension action title when offline"
+  },
+
+  "extensionTitleOnline": {
+    "message": "[ONLINE] Connected",
+    "description": "Extension action title when online"
+  },
+
+  "extensionTitleOfflineDisabledReload": {
+    "message": "[OFFLINE] Auto tab reload disabled",
+    "description": "Extension action title when offline and with auto tab reload disabled"
+  },
+
+  "extensionTitleOnlineDisabledReload": {
+    "message": "[ONLINE] Auto tab reload disabled",
+    "description": "Extension action title when online and with auto tab reload disabled"
+  }
+}

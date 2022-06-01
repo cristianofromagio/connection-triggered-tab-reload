@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "Connection Triggered Tab Reload",
-  "description": "Reloads current active tab when navigator status turns online again",
+  "name": "__MSG_extensionName__",
+  "description": "__MSG_extensionDescription__",
   "version": "1.0",
   "default_locale": "en",
   "homepage_url": "https://github.com/cristianofromagio/connection-tab-reload-firefox",
@@ -16,7 +16,7 @@
 
   "browser_action": {
     "default_icon": "icons/icon-online-96.svg",
-    "default_title": "Tab Reload"
+    "default_title": "__MSG_extensionTitle__"
   },
 
   "background": {

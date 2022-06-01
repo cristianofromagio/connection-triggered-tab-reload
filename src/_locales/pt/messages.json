@@ -1,0 +1,36 @@
+{
+  "extensionName": {
+    "message": "Recarregamento de aba disparado por conectividade",
+    "description": "Nome da extensão"
+  },
+
+  "extensionDescription": {
+    "message": "Recarrega a aba ativa quando o navegador retorna ao status de online",
+    "description": "Descrição da extensão"
+  },
+
+  "extensionTitle": {
+    "message": "Recarregamento de aba disparado por conectividade",
+    "description": "Título do ícone da extensão"
+  },
+
+  "extensionTitleOffline": {
+    "message": "[OFFLINE] Aguardando conexão",
+    "description": "Título do ícone da extensão quando estiver offline"
+  },
+
+  "extensionTitleOnline": {
+    "message": "[ONLINE] Conectado",
+    "description": "Título do ícone da extensão quando estiver online"
+  },
+
+  "extensionTitleOfflineDisabledReload": {
+    "message": "[OFFLINE] Recarregamento automático da aba desativado",
+    "description": "Título do ícone da extensão quando estiver offline e com recarregamento automático da aba desativado"
+  },
+
+  "extensionTitleOnlineDisabledReload": {
+    "message": "[ONLINE] Recarregamento automático da aba desativado",
+    "description": "Título do ícone da extensão quando estiver online e com recarregamento automático da aba desativado"
+  }
+}
