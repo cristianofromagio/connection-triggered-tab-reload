@@ -14,6 +14,8 @@
  *  - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all
  *  - https://github.com/PoliteJS/gulp-change
  *  - https://techsparx.com/nodejs/graphics/svg-to-png.html
+ *  - https://github.com/svg/svgo/blob/main/plugins/removeAttrs.js
+ *  - https://github.com/ben-eb/gulp-svgmin/issues/125#issuecomment-1026938305
  *  -
  */
 
@@ -184,12 +186,7 @@ function assembleIcons(cb) {
 }
 
 function optimizeIcons(cb) {
-  /**
-    '--removeXMLNS',
-    '--convertPathData',
-    'removeViewBox', // find "convert width/height to viewbox"
-    '--cleanupIDs', // this would remove svg groud ids (but we need them to set context-fill)
-  */
+
   return src('src/icons/*.svg')
     .pipe(svgmin({
       multipass: true,
@@ -197,45 +194,41 @@ function optimizeIcons(cb) {
       js2svg: { pretty: true, indent: 2 },
       full: true,
       plugins: [
-        'removeDoctype',
-        'removeXMLProcInst',
-        'removeComments',
-        'removeMetadata',
-        'removeEditorsNSData',
-        'cleanupAttrs',
-        'mergeStyles',
-        'inlineStyles',
-        'minifyStyles',
-        'convertStyleToAttrs',
+        {
+          name: 'preset-default',
+          params: {
+            overrides: {
+              cleanupIDs: false,
+              removeViewBox: false,
+              moveElemsAttrsToGroup: false,
+              moveGroupAttrsToElems: false,
+              removeXMLNS: false,
+              convertPathData: false,
+            }
+          }
+        },
         'removeRasterImages',
-        'removeUselessDefs',
-        'cleanupNumericValues',
         'cleanupListOfValues',
-        'convertColors',
-        'removeUnknownsAndDefaults',
-        'removeNonInheritableGroupAttrs',
-        'removeUselessStrokeAndFill',
-        'cleanupEnableBackground',
-        'removeHiddenElems',
-        'removeEmptyText',
-        'convertShapeToPath',
-        'convertEllipseToCircle',
-        'moveGroupAttrsToElems',
-        'collapseGroups',
-        'convertTransform',
-        'removeEmptyAttrs',
-        'removeEmptyContainers',
-        'mergePaths',
-        'removeUnusedNS',
-        'sortAttrs',
-        'sortDefsChildren',
-        'removeTitle',
-        'removeDesc',
+        'convertStyleToAttrs',
         'removeStyleElement',
         'removeScriptElement',
         'removeOffCanvasPaths',
-        'reusePaths',
-      ],
+        'sortAttrs',
+        {
+          name: "removeAttrs",
+          params: {
+            attrs: [
+              // remove all attrs starting with "fill-" and "stroke"
+              // (stroke should be converted to path on inkscape export)
+              '(fill-.*|stroke.*)',
+              // remove id attr from all elements where id starts with "circle" and "path" (mostly auto-generated ids)
+              '*:id:circle.*|path.*',
+              // remove opacity attr from all elements where opacity equals to "1" ("1" is the default value already)
+              '*:opacity:1',
+            ]
+          }
+        }
+      ]
     }))
     .pipe(dest('src/icons'));
 }
