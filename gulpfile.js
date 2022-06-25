@@ -16,18 +16,27 @@
  *  - https://techsparx.com/nodejs/graphics/svg-to-png.html
  *  - https://github.com/svg/svgo/blob/main/plugins/removeAttrs.js
  *  - https://github.com/ben-eb/gulp-svgmin/issues/125#issuecomment-1026938305
+ *  - https://gulpjs.com/docs/en/api/concepts/#glob-base
+ *  - https://extensionworkshop.com/documentation/develop/getting-started-with-web-ext/
+ *  - https://stackabuse.com/executing-shell-commands-with-node-js/
+ *  - http://fabricjs.com/test/misc/origin.html
+ *  - https://stackoverflow.com/a/54706735
  *  -
  */
 
 const
   fs = require('fs'),
+  path = require('path'),
+  { exec, execSync, spawn } = require("child_process"),
   { src, dest, watch, series } = require('gulp'),
   merge = require('merge-stream'),
   change = require('gulp-change'),
   fabric = require('fabric').fabric,
   svgmin = require('gulp-svgmin'),
-  { DOMParser, XMLSerializer } = require('@xmldom/xmldom');
+  { DOMParser, XMLSerializer } = require('@xmldom/xmldom'),
+  webExt = require('web-ext');
 
+const DEST_FOLDER = "dist";
 const CANVAS_HEIGHT = 96;
 const CANVAS_WIDTH = 96;
 const ICON_BOTTOM_RIGHT_POSITION = {
@@ -235,21 +244,84 @@ function adaptIconsFill() {
 
 }
 
-function listen() {
-  watch(['./src/**/*'], {
-    events: ['change']
-  }, build);
+function listen(cb) {
+
+  watch(
+    ['./src/**/*'],
+    { events: ['change'] },
+    build
+  );
+
+  // exec('web-ext run --verbose -s "C:\\Users\\froma\\Development\\connectivity-triggered-tab-reload-firefox\\dist"', (error, stdout, stderr) => {
+  //     if (error) {
+  //         console.log(`error: ${error.message}`);
+  //         return;
+  //     }
+  //     if (stderr) {
+  //         console.log(`stderr: ${stderr}`);
+  //         return;
+  //     }
+  //     console.log(`stdout: ${stdout}`);
+  // });
+
+  const wext = spawn('web-ext', ['run', '-s', "C:\\Users\\froma\\Development\\connectivity-triggered-tab-reload-firefox\\dist"], { shell: true });
+
+  wext.stdout.on('data', (data) => {
+    console.log(`stdout: ${data}`);
+  });
+
+  wext.stderr.on('data', (data) => {
+    console.error(`stderr: ${data}`);
+    cb();
+  });
+
+  wext.on('error', (error) => {
+    console.log(`error: ${error.message}`);
+    cb();
+  });
+
+  wext.on('close', (code) => {
+    console.log(`child process exited with code ${code}`);
+    cb();
+  });
+
 }
 
-function build() {}
+function build() {
 
-function publish() {}
+  const filesToCopy = [
+    "src/_locales/en/messages.json",
+    "src/_locales/pt/messages.json",
+    "src/icons/icon-offline-96.svg",
+    "src/icons/icon-offline-disabled-96.svg",
+    "src/icons/icon-online-96.svg",
+    "src/icons/icon-online-disabled-96.svg",
+    "src/vendor/browser-polyfill.min.js",
+    "src/background.js",
+    "src/manifest.json",
+  ];
 
+  return src(filesToCopy, { base: 'src'}).pipe(dest(DEST_FOLDER));
+
+}
+
+let download = async function(filename, uri) {
+  // "-o" outputs response to a file
+  // "-L" follows redirects
+  let command = `curl -o ${filename} -L ${uri}`;
+  execSync(command);
+};
+
+async function downloadPolyfill() {
+  return await download('src/vendor/browser-polyfill.min.js', 'https://unpkg.com/webextension-polyfill@latest/dist/browser-polyfill.min.js')
+}
 
 const devTasks = series(build, listen);
 
 exports.generateIcons = series(assembleIcons, optimizeIcons, adaptIconsFill);
-exports.publish = series(build, publish);
 exports.build = build;
+exports.listen = listen;
+exports.polyfill = downloadPolyfill;
+exports.bundle = series(downloadPolyfill, build);
 exports.dev = devTasks;
 exports.default = devTasks;

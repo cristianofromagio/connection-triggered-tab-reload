@@ -16,6 +16,7 @@
  *  - chrome://devtools/skin/images/debugging-workers.svg (saved on the project at `./images/debugging-workers.svg`)
  *  -   this file is used in the browser interface and have a fill: context-fill to adapt to theme colors
  *  - https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/i18n/getMessage
+ *  - https://github.com/mozilla/webextension-polyfill
  *  -
  */
 
