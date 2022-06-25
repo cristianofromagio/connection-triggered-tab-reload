@@ -5,7 +5,7 @@
   },
 
   "extensionDescription": {
-    "message": "Recarrega a aba ativa quando o navegador retorna ao status de online",
+    "message": "Recarrega a aba atual quando o navegador retorna ao status de online",
     "description": "Descrição da extensão"
   },
 
