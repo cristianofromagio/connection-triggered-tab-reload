@@ -6,8 +6,10 @@
   "default_locale": "en",
   "homepage_url": "https://github.com/cristianofromagio/connection-tab-reload-firefox",
   "icons": {
-    "48": "icons/icon-online-96.svg",
-    "96": "icons/icon-online-96.svg"
+    "16": "icons/icon-light-online-16.png",
+    "32": "icons/icon-light-online-32.png",
+    "48": "icons/icon-light-online-48.png",
+    "128": "icons/icon-light-online-128.png"
   },
 
   "permissions": [
@@ -15,7 +17,11 @@
   ],
 
   "browser_action": {
-    "default_icon": "icons/icon-online-96.svg",
+    "default_icon": {
+      "16": "icons/icon-light-online-16.png",
+      "32": "icons/icon-light-online-32.png",
+      "48": "icons/icon-light-online-48.png"
+    },
     "default_title": "__MSG_extensionTitle__"
   },
 

@@ -17,12 +17,14 @@
  *  -   this file is used in the browser interface and have a fill: context-fill to adapt to theme colors
  *  - https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/i18n/getMessage
  *  - https://github.com/mozilla/webextension-polyfill
+ *  - https://github.com/PlasmoHQ/plasmo/blob/main/cli/plasmo/templates/manifest.json
  *  -
  */
 
 
 let currentActiveTab;
 let currentActiveAction;
+let currentTheme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
 let scheduledToReload = (navigator.onLine) ? false : true;
 let autoReload = true;
 
@@ -37,15 +39,18 @@ actionsMix[false][false] = { icon: "online-disabled",  title: browser.i18n.getMe
  * Updates the browserAction icon to reflect whether the current page
  * is already scheduledToReload.
  */
-function updateIcon() {
+function updateIcon(forced = false) {
   const newAction = actionsMix[scheduledToReload][autoReload];
 
-  if (JSON.stringify(currentActiveAction) !== JSON.stringify(newAction)) {
+  if (
+    (JSON.stringify(currentActiveAction) !== JSON.stringify(newAction)) || (forced === true)
+  ) {
 
     browser.browserAction.setIcon({
       path: {
-        19: `icons/icon-${newAction.icon}-96.svg`,
-        38: `icons/icon-${newAction.icon}-96.svg`
+        16: `icons/icon-${currentTheme}-${newAction.icon}-16.png`,
+        32: `icons/icon-${currentTheme}-${newAction.icon}-32.png`,
+        48: `icons/icon-${currentTheme}-${newAction.icon}-48.png`
       }
     });
 
@@ -63,7 +68,6 @@ function updateIcon() {
 function toggleAutoReload() {
   autoReload = !autoReload;
   updateIcon();
-  console.log('autoReload: ' + autoReload);
 }
 
 browser.browserAction.onClicked.addListener(toggleAutoReload);
@@ -112,17 +116,20 @@ function networkConnectivityChanged(message) {
 }
 
 window.addEventListener('offline', function (ev) {
-  console.log('offline');
   networkConnectivityChanged({
     "status": ev.type
   });
 });
 
 window.addEventListener('online', function (ev) {
-  console.log('online');
   networkConnectivityChanged({
     "status": ev.type
   });
+});
+
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (ev) {
+  currentTheme = (ev.matches) ? 'dark' : 'light';
+  updateIcon(true);
 });
 
 
