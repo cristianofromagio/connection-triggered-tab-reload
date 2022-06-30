@@ -1,6 +1,8 @@
-# connection-tab-reload
+# Connection Triggered Tab Reload
 
-Firefox extension that reloads current active tab when navigator status turns online again
+Browser extension that reloads current active tab when navigator status turns online again. Tested on latest versions of Firefox Developer Edition, Google Chrome, Edge and Opera.
+
+![Screenshot](https://raw.githubusercontent.com/cristianofromagio/connection-triggered-tab-reload/master/images/screenshots/screenshot-v1.0.gif)
 
 ## Why I built this
 
