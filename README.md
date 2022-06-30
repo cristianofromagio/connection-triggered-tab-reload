@@ -19,3 +19,4 @@ When a tab is reproducing a livestream and there is a short instability in the n
 
 - Extension code based on [https://github.com/mdn/webextensions-examples/tree/master/bookmark-it](https://github.com/mdn/webextensions-examples/tree/master/bookmark-it)
 - Icons created with icon from [https://github.com/astrit/css.gg](https://github.com/astrit/css.gg)
+- Some build scripts and templates from [https://github.com/PlasmoHQ/plasmo](https://github.com/PlasmoHQ/plasmo)

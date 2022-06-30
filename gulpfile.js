@@ -21,163 +21,33 @@
  *  - https://stackabuse.com/executing-shell-commands-with-node-js/
  *  - http://fabricjs.com/test/misc/origin.html
  *  - https://stackoverflow.com/a/54706735
+ *  - https://github.com/matatk/landmarks/issues/186#issuecomment-619380506 (icon contrast)
+ *  - https://github.com/PlasmoHQ/plasmo/blob/main/cli/plasmo/src/features/extension-devtools/generate-icons.ts
+ *  - https://www.stanleyulili.com/node/node-modules-import-and-use-functions-from-another-file/
  *  -
  */
 
 const
-  fs = require('fs'),
-  path = require('path'),
   { exec, execSync, spawn } = require("child_process"),
-  { src, dest, watch, series } = require('gulp'),
+  { src, dest, watch, series, parallel } = require('gulp'),
+  del = require('del'),
   merge = require('merge-stream'),
   change = require('gulp-change'),
-  fabric = require('fabric').fabric,
   svgmin = require('gulp-svgmin'),
   { DOMParser, XMLSerializer } = require('@xmldom/xmldom'),
   webExt = require('web-ext');
 
+const {
+  assembleIcons,
+  resizeIcons,
+  cleanAssembleIcons,
+  resizeIconsStub,
+  displayIconsStub
+} = require('./scripts/generate-icons');
+
 const DEST_FOLDER = "dist";
-const CANVAS_HEIGHT = 96;
-const CANVAS_WIDTH = 96;
-const ICON_BOTTOM_RIGHT_POSITION = {
-  id: 'icon-status', // this will be the group/path id inside generated svg
-  originY: 'bottom',
-  originX: 'right',
-  top: CANVAS_HEIGHT,
-  left: CANVAS_WIDTH
-};
-const ICON_BOTTOM_CENTER_POSITION = {
-  id: 'icon-status', // this will be the group/path id inside generated svg
-  originY: 'bottom',
-  originX: 'center',
-  top: CANVAS_HEIGHT,
-  left: CANVAS_WIDTH / 2
-};
 
-function assembleIcons(cb) {
-
-  function savePng(iconName, base64String) {
-    const base64Data = base64String.replace(/^data:image\/png;base64,/, "");
-    fs.writeFile('src/icons/' + iconName + '.png', base64Data, 'base64', (err) => {
-      if (err) throw err;
-      // console.log(iconName + ' PNG written!');
-    });
-  }
-
-  function saveSvg(iconName, svgString) {
-    fs.writeFile('src/icons/' + iconName + '.svg', svgString, (err) => {
-      if (err) throw err;
-      // console.log(iconName + ' SVG written!');
-    });
-  }
-
-  function saveFiles(iconName, canvasCtx) {
-    // savePng(iconName, canvasCtx.toDataURL());
-    saveSvg(iconName, canvasCtx.toSVG());
-  }
-
-  const canvasContext = new fabric.StaticCanvas(null, { width: CANVAS_HEIGHT, height: CANVAS_WIDTH });
-
-  const loadSvg = (relativePath, options) => {
-    let fabricObjResolve;
-    let fabricObjReject;
-
-    fabric.loadSVGFromURL(`file://${__dirname}/${ relativePath }`, (objects, opts) => {
-      let oSvg = fabric.util.groupSVGElements(objects, opts);
-
-      if (options) {
-        oSvg.set(options);
-      }
-
-      if (oSvg) {
-        fabricObjResolve(oSvg);
-      } else {
-        fabricObjReject('Not loaded');
-      }
-    });
-
-    return new Promise((resolve, reject) => {
-      fabricObjResolve = resolve;
-      fabricObjReject = reject;
-    });
-  };
-
-  const assembleIcon = (iconName, parts) => {
-
-    // we clear canvas in order to reuse the same
-    canvasContext.clear();
-
-    let partsPromises = [];
-    parts.forEach(part => {
-      partsPromises.push(loadSvg(part.filepath, part.options));
-    });
-
-    return Promise.all(partsPromises)
-      .then((images) => {
-        images.forEach((oImg) => {
-          canvasContext.add(oImg).renderAll();
-        });
-        saveFiles(iconName, canvasContext);
-        canvasContext.clear();
-      });
-
-  };
-
-  const iconOnline = assembleIcon('icon-online-96', [
-    {
-      filepath: 'images/parts/v2/bg-light.svg',
-      options: { id: 'icon-bg' }
-    },
-    {
-      filepath: 'images/parts/v2/status-on.svg',
-      options: ICON_BOTTOM_RIGHT_POSITION
-    }
-  ]);
-
-  const iconOffline = assembleIcon('icon-offline-96', [
-    {
-      filepath: 'images/parts/v2/bg-light.svg',
-      options: { id: 'icon-bg' }
-    },
-    {
-      filepath: 'images/parts/v2/status-off.svg',
-      options: ICON_BOTTOM_RIGHT_POSITION
-    }
-  ]);
-
-  const iconOnlineDisabled = assembleIcon('icon-online-disabled-96', [
-    {
-      filepath: 'images/parts/v2/bg-light.svg',
-      options: { id: 'icon-bg' }
-    },
-    {
-      filepath: 'images/parts/v2/status-on-disabled.svg',
-      options: ICON_BOTTOM_RIGHT_POSITION
-    }
-  ]);
-
-  const iconOfflineDisabled = assembleIcon('icon-offline-disabled-96', [
-    {
-      filepath: 'images/parts/v2/bg-light.svg',
-      options: { id: 'icon-bg' }
-    },
-    {
-      filepath: 'images/parts/v2/status-off-disabled.svg',
-      options: ICON_BOTTOM_RIGHT_POSITION
-    }
-  ]);
-
-  return Promise.all([
-    iconOnline,
-    iconOffline,
-    iconOnlineDisabled,
-    iconOfflineDisabled
-  ]).then(() => {
-    console.log('All icons assembled');
-  });
-}
-
-function optimizeIcons(cb) {
+function optimizeSvgIcons(cb) {
 
   return src('src/icons/*.svg')
     .pipe(svgmin({
@@ -287,15 +157,13 @@ function listen(cb) {
 
 }
 
-function build() {
+async function build() {
+
+  await del(['dist/**/*']);
 
   const filesToCopy = [
-    "src/_locales/en/messages.json",
-    "src/_locales/pt/messages.json",
-    "src/icons/icon-offline-96.svg",
-    "src/icons/icon-offline-disabled-96.svg",
-    "src/icons/icon-online-96.svg",
-    "src/icons/icon-online-disabled-96.svg",
+    "src/_locales/**/*",
+    "src/icons/icon-*.png",
     "src/vendor/browser-polyfill.min.js",
     "src/background.js",
     "src/manifest.json",
@@ -317,11 +185,16 @@ async function downloadPolyfill() {
 }
 
 const devTasks = series(build, listen);
+const generateIconsTasks = series(assembleIcons, resizeIcons);
 
-exports.generateIcons = series(assembleIcons, optimizeIcons, adaptIconsFill);
-exports.build = build;
-exports.listen = listen;
-exports.polyfill = downloadPolyfill;
-exports.bundle = series(downloadPolyfill, build);
-exports.dev = devTasks;
-exports.default = devTasks;
+module.exports = {
+  'icons-script': series(resizeIconsStub, displayIconsStub),
+  generateIcons: generateIconsTasks,
+  generateIconsSvg: series(assembleIcons, optimizeSvgIcons, adaptIconsFill),
+  build: build,
+  listen: listen,
+  polyfill: downloadPolyfill,
+  bundle: series(parallel(generateIconsTasks, downloadPolyfill), build),
+  dev: devTasks,
+  default: devTasks
+}
