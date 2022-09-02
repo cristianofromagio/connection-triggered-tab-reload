@@ -314,13 +314,23 @@ browser.alarms.onAlarm.addListener(async (e) => {
   await pingDOH();
 });
 
+function randomString(len, charSet) {
+  charSet = charSet || 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var randomString = '';
+  for (var i = 0; i < len; i++) {
+      var randomPoz = Math.floor(Math.random() * charSet.length);
+      randomString += charSet.substring(randomPoz,randomPoz+1);
+  }
+  return randomString;
+}
+
 async function pingDOH() {
 
   // const controller = new AbortController();
   // const signal = controller.signal;
   // const requestTimeout = setTimeout(() => controller.abort(), 5000);
 
-  await fetch('https://dns.google/resolve?name=8.8.8.8&cd=1', { signal: AbortSignal.timeout(3000) })
+  await fetch('https://dns.google/resolve?name=8.8.8.8&cd=1&random_padding='+randomString(15), { signal: AbortSignal.timeout(3000) })
     .then((response) => {
       if (!response.ok) {
         networkConnectivityChanged({ "status": "offline" });
