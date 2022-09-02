@@ -21,19 +21,52 @@ const CANVAS_WIDTH = 96;
 const CANVAS_PADDING = 16;
 const CANVAS_HEIGHT_PADDED = CANVAS_HEIGHT + (CANVAS_PADDING * 2);
 const CANVAS_WIDTH_PADDED = CANVAS_WIDTH + (CANVAS_PADDING * 2);
-const ICON_BG_TOP_CENTER_POSITION_PADDED = {
+const ICON_BG_TOP_LEFT_POSITION = {
+  id: 'icon-bg',
+  originY: 'top',
+  originX: 'left',
+  top: 0,
+  left: 0
+};
+const ICON_BG_TOP_CENTER_POSITION = {
   id: 'icon-bg',
   originY: 'top',
   originX: 'center',
+  top: 0,
+  left: CANVAS_WIDTH / 2
+};
+const ICON_BG_TOP_CENTER_POSITION_PADDED = {
+  ...ICON_BG_TOP_CENTER_POSITION,
   top: CANVAS_PADDING,
   left: CANVAS_WIDTH_PADDED / 2
 };
-const ICON_BOTTOM_RIGHT_POSITION_PADDED = {
+const ICON_TOP_LEFT_POSITION = {
+  ...ICON_BG_TOP_LEFT_POSITION,
+  id: 'icon-status', // this will be the group/path id inside generated svg
+};
+const ICON_BOTTOM_RIGHT_POSITION = {
   id: 'icon-status', // this will be the group/path id inside generated svg
   originY: 'bottom',
   originX: 'right',
+  top: CANVAS_HEIGHT,
+  left: CANVAS_WIDTH
+};
+const ICON_BOTTOM_RIGHT_POSITION_PADDED = {
+  ...ICON_BOTTOM_RIGHT_POSITION,
   top: CANVAS_HEIGHT_PADDED - CANVAS_PADDING,
   left: CANVAS_WIDTH_PADDED - CANVAS_PADDING
+};
+const ICON_BOTTOM_LEFT_POSITION = {
+  id: 'icon-status', // this will be the group/path id inside generated svg
+  originY: 'bottom',
+  originX: 'left',
+  top: CANVAS_HEIGHT,
+  right: CANVAS_WIDTH,
+};
+const ICON_BOTTOM_LEFT_POSITION_PADDED = {
+  ...ICON_BOTTOM_LEFT_POSITION,
+  top: CANVAS_HEIGHT_PADDED - CANVAS_PADDING,
+  right: CANVAS_WIDTH_PADDED - CANVAS_PADDING
 };
 const ICON_BOTTOM_CENTER_POSITION = {
   id: 'icon-status', // this will be the group/path id inside generated svg
@@ -132,107 +165,35 @@ const assembleIcons = async (cb) => {
 
   };
 
-  // light theme icons
+  // light theme icon
 
-  const iconLightOnline = assembleIcon('icon-light-online', [
+  const iconLightEnabled = assembleIcon('icon-light', [
     {
-      filepath: 'images/parts/v2/bg-light.svg',
-      options: ICON_BG_TOP_CENTER_POSITION_PADDED
+      filepath: 'images/parts/v3/bg-light.svg',
+      options: ICON_BG_TOP_LEFT_POSITION
     },
     {
-      filepath: 'images/parts/v2/status-on.svg',
-      options: ICON_BOTTOM_RIGHT_POSITION_PADDED
+      filepath: 'images/parts/v3/status-enabled.svg',
+      options: ICON_TOP_LEFT_POSITION
     }
   ]);
 
-  const iconLightOffline = assembleIcon('icon-light-offline', [
+  // dark theme icon
+
+  const iconDarkEnabled = assembleIcon('icon-dark', [
     {
-      filepath: 'images/parts/v2/bg-light.svg',
-      options: ICON_BG_TOP_CENTER_POSITION_PADDED
+      filepath: 'images/parts/v3/bg-dark.svg',
+      options: ICON_BG_TOP_LEFT_POSITION
     },
     {
-      filepath: 'images/parts/v2/status-off.svg',
-      options: ICON_BOTTOM_RIGHT_POSITION_PADDED
-    }
-  ]);
-
-  const iconLightOnlineDisabled = assembleIcon('icon-light-online-disabled', [
-    {
-      filepath: 'images/parts/v2/bg-light.svg',
-      options: ICON_BG_TOP_CENTER_POSITION_PADDED
-    },
-    {
-      filepath: 'images/parts/v2/status-on-disabled.svg',
-      options: ICON_BOTTOM_RIGHT_POSITION_PADDED
-    }
-  ]);
-
-  const iconLightOfflineDisabled = assembleIcon('icon-light-offline-disabled', [
-    {
-      filepath: 'images/parts/v2/bg-light.svg',
-      options: ICON_BG_TOP_CENTER_POSITION_PADDED
-    },
-    {
-      filepath: 'images/parts/v2/status-off-disabled.svg',
-      options: ICON_BOTTOM_RIGHT_POSITION_PADDED
-    }
-  ]);
-
-  // dark theme icons
-
-  const iconDarkOnline = assembleIcon('icon-dark-online', [
-    {
-      filepath: 'images/parts/v2/bg-dark.svg',
-      options: ICON_BG_TOP_CENTER_POSITION_PADDED
-    },
-    {
-      filepath: 'images/parts/v2/status-on.svg',
-      options: ICON_BOTTOM_RIGHT_POSITION_PADDED
-    }
-  ]);
-
-  const iconDarkOffline = assembleIcon('icon-dark-offline', [
-    {
-      filepath: 'images/parts/v2/bg-dark.svg',
-      options: ICON_BG_TOP_CENTER_POSITION_PADDED
-    },
-    {
-      filepath: 'images/parts/v2/status-off.svg',
-      options: ICON_BOTTOM_RIGHT_POSITION_PADDED
-    }
-  ]);
-
-  const iconDarkOnlineDisabled = assembleIcon('icon-dark-online-disabled', [
-    {
-      filepath: 'images/parts/v2/bg-dark.svg',
-      options: ICON_BG_TOP_CENTER_POSITION_PADDED
-    },
-    {
-      filepath: 'images/parts/v2/status-on-disabled.svg',
-      options: ICON_BOTTOM_RIGHT_POSITION_PADDED
-    }
-  ]);
-
-  const iconDarkOfflineDisabled = assembleIcon('icon-dark-offline-disabled', [
-    {
-      filepath: 'images/parts/v2/bg-dark.svg',
-      options: ICON_BG_TOP_CENTER_POSITION_PADDED
-    },
-    {
-      filepath: 'images/parts/v2/status-off-disabled.svg',
-      options: ICON_BOTTOM_RIGHT_POSITION_PADDED
+      filepath: 'images/parts/v3/status-enabled.svg',
+      options: ICON_TOP_LEFT_POSITION
     }
   ]);
 
   return Promise.all([
-    iconLightOnline,
-    iconLightOffline,
-    iconLightOnlineDisabled,
-    iconLightOfflineDisabled,
-    iconDarkOnline,
-    iconDarkOffline,
-    iconDarkOnlineDisabled,
-    iconDarkOfflineDisabled
+    iconLightEnabled,
+    iconDarkEnabled
   ]).then(() => {
     console.log('All icons assembled');
   });
