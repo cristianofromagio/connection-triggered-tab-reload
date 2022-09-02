@@ -20,7 +20,7 @@
   },
 
   "extensionTitleOnline": {
-    "message": "[ONLINE] Connected",
+    "message": "[ONLINE] Connected and enabled",
     "description": "Extension action title when online"
   },
 

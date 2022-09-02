@@ -20,7 +20,7 @@
   },
 
   "extensionTitleOnline": {
-    "message": "[ONLINE] Conectado",
+    "message": "[ONLINE] Conectado e ativado",
     "description": "Título do ícone da extensão quando estiver online"
   },
 
