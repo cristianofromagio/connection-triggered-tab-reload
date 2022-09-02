@@ -24,6 +24,7 @@
  *  - https://github.com/matatk/landmarks/issues/186#issuecomment-619380506 (icon contrast)
  *  - https://github.com/PlasmoHQ/plasmo/blob/main/cli/plasmo/src/features/extension-devtools/generate-icons.ts
  *  - https://www.stanleyulili.com/node/node-modules-import-and-use-functions-from-another-file/
+ *  - https://github.com/sindresorhus/gulp-imagemin/issues/366#issuecomment-1038400682
  *  -
  */
 
@@ -35,17 +36,25 @@ const
   change = require('gulp-change'),
   svgmin = require('gulp-svgmin'),
   { DOMParser, XMLSerializer } = require('@xmldom/xmldom'),
+  strip = require('gulp-strip-comments'),
   webExt = require('web-ext');
 
 const {
   assembleIcons,
   resizeIcons,
-  cleanAssembleIcons,
   resizeIconsStub,
   displayIconsStub
 } = require('./scripts/generate-icons');
+const { getCommonPath } = require('./scripts/utils/common-paths');
+const { buildDirectory } = getCommonPath();
 
 const DEST_FOLDER = "dist";
+
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
 
 function optimizeSvgIcons(cb) {
 
@@ -134,26 +143,26 @@ function listen(cb) {
   //     console.log(`stdout: ${stdout}`);
   // });
 
-  const wext = spawn('web-ext', ['run', '-s', "C:\\Users\\froma\\Development\\connectivity-triggered-tab-reload-firefox\\dist"], { shell: true });
+  // const wext = spawn('web-ext', ['run', '-s', buildDirectory], { shell: true });
 
-  wext.stdout.on('data', (data) => {
-    console.log(`stdout: ${data}`);
-  });
+  // wext.stdout.on('data', (data) => {
+  //   console.log(`stdout: ${data}`);
+  // });
 
-  wext.stderr.on('data', (data) => {
-    console.error(`stderr: ${data}`);
-    cb();
-  });
+  // wext.stderr.on('data', (data) => {
+  //   console.error(`stderr: ${data}`);
+  //   cb();
+  // });
 
-  wext.on('error', (error) => {
-    console.log(`error: ${error.message}`);
-    cb();
-  });
+  // wext.on('error', (error) => {
+  //   console.log(`error: ${error.message}`);
+  //   cb();
+  // });
 
-  wext.on('close', (code) => {
-    console.log(`child process exited with code ${code}`);
-    cb();
-  });
+  // wext.on('close', (code) => {
+  //   console.log(`child process exited with code ${code}`);
+  //   cb();
+  // });
 
 }
 
@@ -163,7 +172,10 @@ async function build() {
 
   const filesToCopy = [
     "src/_locales/**/*",
-    "src/icons/icon-*.png",
+    "src/icons/icon-*-16.png",
+    "src/icons/icon-*-32.png",
+    "src/icons/icon-*-48.png",
+    "src/icons/icon-*-128.png",
     "src/vendor/browser-polyfill.min.js",
     "src/background.js",
     "src/manifest.json",
@@ -184,17 +196,35 @@ async function downloadPolyfill() {
   return await download('src/vendor/browser-polyfill.min.js', 'https://unpkg.com/webextension-polyfill@latest/dist/browser-polyfill.min.js')
 }
 
+async function stripCommentsForBundle() {
+  await sleep(500);
+  return src(DEST_FOLDER + '/*.js').pipe(strip()).pipe(dest(DEST_FOLDER));
+}
+
+async function minimizeIconsForBundle() {
+  await sleep(500);
+
+  return import('gulp-imagemin').then((gulpImagemin) => {
+		src(DEST_FOLDER + '/icons/*').pipe(
+      gulpImagemin.default([
+        gulpImagemin.optipng(),
+      ]),
+    ).pipe(dest(DEST_FOLDER + '/icons'));
+	});
+}
+
 const devTasks = series(build, listen);
 const generateIconsTasks = series(assembleIcons, resizeIcons);
 
 module.exports = {
-  'icons-script': series(resizeIconsStub, displayIconsStub),
+  'dev:icons-script': series(resizeIconsStub, displayIconsStub),
+  'dev:resize-icons': resizeIcons,
   generateIcons: generateIconsTasks,
   generateIconsSvg: series(assembleIcons, optimizeSvgIcons, adaptIconsFill),
   build: build,
   listen: listen,
   polyfill: downloadPolyfill,
-  bundle: series(parallel(generateIconsTasks, downloadPolyfill), build),
+  bundle: series(parallel(generateIconsTasks, downloadPolyfill), build, stripCommentsForBundle, minimizeIconsForBundle),
   dev: devTasks,
   default: devTasks
 }
