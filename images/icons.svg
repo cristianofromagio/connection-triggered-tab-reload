@@ -15,16 +15,79 @@
    inkscape:version="1.0.2-2 (e86c870879, 2021-01-15)"
    sodipodi:docname="icons.svg">
   <defs
-     id="defs2">
-    <clipPath
-       clipPathUnits="userSpaceOnUse"
-       id="clipPath1102">
-      <path
-         id="path1104"
-         style="opacity:1;fill:#ffcc00;stroke:#5b5b66;stroke-width:1.888;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
-         d="m 212.22548,49.393777 a 6.4573044,6.4161187 45 0 1 0.0291,9.102887 6.4573044,6.4161187 45 0 1 -9.1029,-0.02912 6.4573044,6.4161187 45 0 1 -0.0291,-9.102888 6.4573044,6.4161187 45 0 1 9.10288,0.02912 z" />
-    </clipPath>
-  </defs>
+     id="defs2"><clipPath
+   clipPathUnits="userSpaceOnUse"
+   id="clipPath1102">
+  <path
+     id="path1104"
+     style="opacity:1;fill:#ffcc00;stroke:#5b5b66;stroke-width:1.888;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+     d="m 212.22548,49.393777 a 6.4573044,6.4161187 45 0 1 0.0291,9.102887 6.4573044,6.4161187 45 0 1 -9.1029,-0.02912 6.4573044,6.4161187 45 0 1 -0.0291,-9.102888 6.4573044,6.4161187 45 0 1 9.10288,0.02912 z" />
+</clipPath>
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</defs>
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -32,10 +95,10 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.3732132"
-     inkscape:cx="629.8949"
-     inkscape:cy="332.05785"
-     inkscape:document-units="mm"
+     inkscape:zoom="1.4928528"
+     inkscape:cx="283.46415"
+     inkscape:cy="968.78174"
+     inkscape:document-units="px"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
      showgrid="false"
@@ -56,7 +119,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -2753,7 +2816,7 @@
     <path
        fill-rule="evenodd"
        clip-rule="evenodd"
-       d="m 42.748369,242.02638 -7.693136,4.27396 v 8.54795 l 7.693136,4.27396 7.693146,-4.27396 v -8.54795 z"
+       d="m 31.093338,261.8274 -7.693136,4.27396 v 8.54795 l 7.693136,4.27396 7.693146,-4.27396 v -8.54795 z"
        fill="currentColor"
        id="path2108"
        sodipodi:nodetypes="ccccccc"
@@ -2761,7 +2824,7 @@
     <path
        fill-rule="evenodd"
        clip-rule="evenodd"
-       d="m 37.619608,253.3394 5.128761,2.84929 5.128771,-2.84929 v -5.53016 l -5.128771,-2.84931 -5.128761,2.84931 z m 5.128761,-11.31302 -7.693136,4.27396 v 8.54795 l 7.693136,4.27396 7.693146,-4.27396 v -8.54795 z"
+       d="m 25.964577,273.14042 5.128761,2.84929 5.128771,-2.84929 v -5.53016 l -5.128771,-2.84931 -5.128761,2.84931 z m 5.128761,-11.31302 -7.693136,4.27396 v 8.54795 l 7.693136,4.27396 7.693146,-4.27396 v -8.54795 z"
        fill="currentColor"
        id="path2110"
        style="fill:#5b5b66;fill-opacity:1;stroke-width:0.854793" />
@@ -2962,7 +3025,7 @@
     </g>
     <path
        clip-rule="evenodd"
-       d="m 43.666303,250.24747 2.134322,0.31193 c 0.282169,-3e-5 0.424306,-0.14217 0.424319,-0.42431 l -0.311906,-2.13436 c -0.01067,-0.0657 -0.04241,-0.12941 -0.09338,-0.18036 -0.128338,-0.12835 -0.330878,-0.13155 -0.454021,-0.008 l -0.413662,0.41366 c -1.233703,-1.22726 -3.226922,-1.2284 -4.45535,3e-5 -1.230576,1.23058 -1.227366,3.22793 0.0053,4.46061 1.144568,1.14457 2.945863,1.22959 4.181613,0.25462 0.0042,-0.003 0.04148,-0.0329 0.0563,-0.0478 0.116666,-0.11666 0.116615,-0.30764 -9.02e-4,-0.42534 l -0.534666,-0.53466 c -0.175056,-0.17505 -0.428551,-0.18675 -0.547352,-0.104 -0.641779,0.43604 -1.523363,0.36703 -2.094052,-0.20365 -0.646006,-0.64601 -0.647137,-1.69098 -0.0023,-2.33594 0.642912,-0.64291 1.683526,-0.64385 2.330651,-0.003 l -0.413693,0.41368 c -0.123073,0.12307 -0.119853,0.3256 0.0085,0.45393 0.05094,0.0509 0.114499,0.0828 0.180385,0.0934 z"
+       d="m 32.011272,270.04849 2.134322,0.31193 c 0.282169,-3e-5 0.424306,-0.14217 0.424319,-0.42431 l -0.311906,-2.13436 c -0.01067,-0.0657 -0.04241,-0.12941 -0.09338,-0.18036 -0.128338,-0.12835 -0.330878,-0.13155 -0.454021,-0.008 l -0.413662,0.41366 c -1.233703,-1.22726 -3.226922,-1.2284 -4.45535,3e-5 -1.230576,1.23058 -1.227366,3.22793 0.0053,4.46061 1.144568,1.14457 2.945863,1.22959 4.181613,0.25462 0.0042,-0.003 0.04148,-0.0329 0.0563,-0.0478 0.116666,-0.11666 0.116615,-0.30764 -9.02e-4,-0.42534 l -0.534666,-0.53466 c -0.175056,-0.17505 -0.428551,-0.18675 -0.547352,-0.104 -0.641779,0.43604 -1.523363,0.36703 -2.094052,-0.20365 -0.646006,-0.64601 -0.647137,-1.69098 -0.0023,-2.33594 0.642912,-0.64291 1.683526,-0.64385 2.330651,-0.003 l -0.413693,0.41368 c -0.123073,0.12307 -0.119853,0.3256 0.0085,0.45393 0.05094,0.0509 0.114499,0.0828 0.180385,0.0934 z"
        fill="#010101"
        fill-rule="evenodd"
        id="path2327"
@@ -3038,5 +3101,32 @@
          cy="126.70107"
          r="7.603641" />
     </g>
+    <path
+       id="rect1493"
+       style="opacity:1;fill:#3771c8;fill-opacity:1;stroke:none;stroke-width:0.235705;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+       d="m 24.790944,283.17246 h 13.806021 l -2.751296,4.51698 2.751296,4.44361 H 24.790944 Z"
+       sodipodi:nodetypes="cccccc" />
+    <circle
+       style="opacity:1;fill:#3771c8;stroke:#5b5b66;stroke-width:1.88798;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke;fill-opacity:1"
+       id="circle1781"
+       cx="31.17384"
+       cy="251.19128"
+       r="6.4366126" />
+    <polygon
+       style="fill:#ffffff"
+       points="422.104,270.336 478.416,313.4 456.904,243.728 512.408,201.304 443.808,201.304 422.104,131.032 400.392,201.304 331.784,201.304 387.296,243.728 365.784,313.4 "
+       id="polygon1682"
+       transform="matrix(0.04263169,0,0,0.04263169,13.184786,241.22896)" />
+    <circle
+       style="fill:#3771c8;fill-opacity:1;stroke:#5a5a65;stroke-width:2.03043;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+       id="circle1796"
+       cx="55.916542"
+       cy="271.05475"
+       r="6.9222851" />
+    <polygon
+       style="fill:#ffffff"
+       points="422.104,270.336 478.416,313.4 456.904,243.728 512.408,201.304 443.808,201.304 422.104,131.032 400.392,201.304 331.784,201.304 387.296,243.728 365.784,313.4 "
+       id="polygon1798"
+       transform="matrix(0.04584845,0,0,0.04584845,36.564096,260.3373)" />
   </g>
 </svg>
