@@ -50,7 +50,7 @@
  *        - update icon to online/offline state
  *      - if page is not enabled
  *        - clear alarms
- *        - update icon action badge with no number
+ *        - update icon action badge with no content
  *        - update icon to default
  */
 
@@ -177,7 +177,8 @@ async function setupAlarms() {
     // https://developer.chrome.com/docs/extensions/reference/alarms/#:~:text=In%20order%20to,least%201%20minute.
     browser.alarms.create("network-heartbeat", {
       delayInMinutes: 0,
-      periodInMinutes: 0.25
+      // periodInMinutes: 0.25 // DEBUG
+      periodInMinutes: 1
     });
     console.info('ALARMS SETUP');
   } else {
@@ -217,7 +218,17 @@ async function updateMonitoring() {
 }
 
 async function onTabsUpdated(tabId, { status }, { url }) {
-  if (status === 'complete') {
+  // - check autoreload query param on 'loading' status
+  //    to prevent queryParams being overwritten by page redirects
+  // - we can assume this tab should be enabled even with redirects
+  //    because tabId remains the same throughout the process
+  if (status === 'loading') {
+
+    if (!url) return;
+
+    // check if it is not already enabled because 'loading' can be triggered many times
+    if (monitoringTabList.has(tabId)) return;
+
     // mark tab as enable using query param (no user interaction required)
     try {
       const tabUrl = new URL(url);
@@ -225,12 +236,12 @@ async function onTabsUpdated(tabId, { status }, { url }) {
 
       if (!!autoreloadQueryParam) {
         await toggleTabMonitoringState();
-        return;
       }
     } catch (err) {
       console.error('unable to read url queryparam');
     }
 
+  } else if (status === 'complete') {
     await updateMonitoring();
   }
 }
@@ -261,9 +272,8 @@ async function init() {
   await updateMonitoring();
   console.log('run init');
 }
-// runs when the extension loads initially (browser start for example)
+// runs when the extension loads initially (browser start / extension reload)
 init();
-
 
 async function networkConnectivityChanged(message) {
 
@@ -276,6 +286,7 @@ async function networkConnectivityChanged(message) {
 
   // when going from offline -> online
   if (scheduledToReload && message.status === 'online') {
+
     // // reload only current active tab
     // if (monitoringTabList.has(currentActiveTab.id)) {
     //   // browser.tabs.reload() defaults to current active tab but we can pass a tabId
@@ -285,8 +296,10 @@ async function networkConnectivityChanged(message) {
     monitoringTabList.forEach((tabId) => {
       browser.tabs.reload(tabId);
     });
+
     scheduledToReload = false;
     await updateIcon();
+
   }
 
 }
@@ -304,7 +317,7 @@ window.addEventListener('online', function (ev) {
 });
 
 browser.alarms.onAlarm.addListener(async (e) => {
-  console.log('alarm ev:', e);
+  // console.log('alarm ev:', e);
 
   // browser.windows.getCurrent().then((window) => {
   //   console.log("window ID: " + window.id);
@@ -316,10 +329,10 @@ browser.alarms.onAlarm.addListener(async (e) => {
 
 function randomString(len, charSet) {
   charSet = charSet || 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  var randomString = '';
-  for (var i = 0; i < len; i++) {
-      var randomPoz = Math.floor(Math.random() * charSet.length);
-      randomString += charSet.substring(randomPoz,randomPoz+1);
+  let randomString = '';
+  for (let i = 0; i < len; i++) {
+    let randomPoz = Math.floor(Math.random() * charSet.length);
+    randomString += charSet.substring(randomPoz,randomPoz+1);
   }
   return randomString;
 }
@@ -336,9 +349,8 @@ async function pingDOH() {
         networkConnectivityChanged({ "status": "offline" });
       }
 
-      console.log('i live');
+      // console.log('i live', response.status);
       networkConnectivityChanged({ "status": "online" });
-      console.log(response.status);
     })
     .catch((err) => {
       console.log("err name: ", err.name);
